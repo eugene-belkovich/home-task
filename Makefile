@@ -3,6 +3,11 @@ dev:
 	docker-compose up -d
 	npm run seed
 
+e2e:
+	docker-compose build
+	docker-compose -f docker-compose.e2e.yml --env-file .env.test -p discovery-service-e2e-test up -d
+	npm run seed
+
 start:
 	docker-compose up -d
 
