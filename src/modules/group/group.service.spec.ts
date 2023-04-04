@@ -1,9 +1,9 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {GroupService} from './group.service';
-import { GroupRepository } from "./group.repository";
-import { getModelToken } from "@nestjs/mongoose";
-import { Group, GroupDocument } from "../../schemas/group.schema";
-import { Model } from "mongoose";
+import {GroupRepository} from './group.repository';
+import {getModelToken} from '@nestjs/mongoose';
+import {Group, GroupDocument} from '../../schemas/group.schema';
+import {Model} from 'mongoose';
 
 describe('GroupService', () => {
   let service: GroupService;

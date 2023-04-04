@@ -24,6 +24,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-await-in-loop': 'off',
     'no-shadow': 'off',
+    'no-underscore-dangle': 'off',
     'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
     'class-methods-use-this': 'off',
     'require-await': ['error'],

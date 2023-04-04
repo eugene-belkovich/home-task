@@ -28,7 +28,7 @@ async function bootstrap() {
   const port = configService.get('DISCOVERY_SERVICE_PORT');
 
   try {
-    await app.listen(port);
+    await app.listen(port || 8080);
 
     logger.log(`Service is up on ${port} port, version: ${version}`);
   } catch (e) {

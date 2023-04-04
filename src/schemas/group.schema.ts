@@ -2,18 +2,26 @@ import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Document} from 'mongoose';
 
 @Schema()
-export class Group {
+export class Group extends Document {
   @Prop({required: true})
-  group: string;
+  public group: string;
 
   @Prop({required: true})
-  instances: string;
+  public instances: string;
 
   @Prop({required: true})
-  createdAt: number;
+  public createdAt: number;
 
   @Prop({required: true})
-  lastUpdatedAt: number;
+  public lastUpdatedAt: number;
+
+  public constructor(group: string, instances: string, createdAt: number, lastUpdatedAt: number) {
+    super();
+    this.group = group;
+    this.instances = instances;
+    this.createdAt = createdAt;
+    this.lastUpdatedAt = lastUpdatedAt;
+  }
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

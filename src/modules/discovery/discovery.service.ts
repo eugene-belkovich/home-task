@@ -1,18 +1,28 @@
-import {Get, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InstanceDocument} from '../../schemas/instance.schema';
-import {GroupDocument} from '../../schemas/group.schema';
 import {GroupService} from '../group/group.service';
+import {InstanceService} from '../instance/instance.service';
 
 @Injectable()
 export class DiscoveryService {
-  constructor(private readonly groupService: GroupService) {}
+  public constructor(private readonly groupService: GroupService, private readonly instanceService: InstanceService) {}
 
-  @Get('/')
-  async getAllGroups(): Promise<GroupDocument[] | null> {
-    return this.groupService.getAllGroups();
-  }
+  public async registerInstance(
+    group: string,
+    id: string,
+    meta?: Record<string, any>,
+  ): Promise<InstanceDocument | null> {
+    const resultGroup = await this.groupService.getOrCreate(group);
+    if (!resultGroup) {
+      throw new Error('Group not found');
+    }
+    const existingInstance = await this.instanceService.createOrUpdate(resultGroup.group, id, meta);
+    const instances = await this.instanceService.getInstancesByGroup(resultGroup.group);
+    if (!instances) {
+      throw new Error('Instances not found');
+    }
+    await this.groupService.updateInstanceCount(resultGroup.group, instances.length || 0);
 
-  async getInstancesByGroup(group: string): Promise<InstanceDocument[] | null> {
-    return null;
+    return existingInstance;
   }
 }

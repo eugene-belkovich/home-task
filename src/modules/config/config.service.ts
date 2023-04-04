@@ -12,7 +12,7 @@ export class ConfigService implements IConfigService {
     dotenv.config({path});
   }
 
-  public get(key: string): string {
+  public get(key: string): string | undefined {
     return process.env[key];
   }
 

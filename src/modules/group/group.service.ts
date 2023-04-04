@@ -4,9 +4,22 @@ import {GroupRepository} from './group.repository';
 
 @Injectable()
 export class GroupService {
-  constructor(private readonly groupRepository: GroupRepository) {}
+  public constructor(private readonly groupRepository: GroupRepository) {}
 
-  async getAllGroups(): Promise<GroupDocument[] | null> {
+  public async getOrCreate(group: string): Promise<GroupDocument | null> {
+    let resultGroup = await this.groupRepository.findByName(group);
+    if (!resultGroup) {
+      resultGroup = await this.groupRepository.createGroup(group);
+    }
+
+    return resultGroup;
+  }
+
+  public async updateInstanceCount(group: string, instances: number): Promise<void> {
+    await this.groupRepository.updateInstanceCount(group, instances);
+  }
+
+  public getAllGroups(): Promise<GroupDocument[] | null> {
     return this.groupRepository.findAll();
   }
 }

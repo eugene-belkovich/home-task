@@ -20,7 +20,7 @@
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run lint --fix",
     "prettier": "prettier --write '**/*.{js,json,ts,md}' --ignore-path .eslintignore",
-    "format": "npm run lint:fix && npm run prettier",
+    "format": "npm run prettier && npm run lint:fix",
     "ts": "tsc -p tsconfig.json"
   },
   "pre-commit": [

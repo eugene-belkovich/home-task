@@ -1,1 +1,3 @@
-export default async function setup(): Promise<void> {}
+export default function setup(): Promise<void> {
+  return Promise.resolve();
+}

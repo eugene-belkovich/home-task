@@ -1,1 +1,3 @@
-export default async function teardown(): Promise<void> {}
+export default function teardown(): Promise<void> {
+  return Promise.resolve();
+}
