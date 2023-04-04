@@ -19,4 +19,8 @@ export class InstanceService {
   public getInstancesByGroup(group: string): Promise<InstanceDocument[] | null> {
     return this.instanceRepository.findAllByGroupName(group);
   }
+
+  async deleteByGroupAndId(group: string, id: string): Promise<void> {
+    await this.instanceRepository.deleteByGroupAndId(group, id);
+  }
 }

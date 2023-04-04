@@ -21,8 +21,14 @@ export class DiscoveryService {
     if (!instances) {
       throw new Error('Instances not found');
     }
-    await this.groupService.updateInstanceCount(resultGroup.group, instances.length || 0);
+    await this.groupService.updateInstanceCount(resultGroup.group, instances?.length || 0);
 
     return existingInstance;
+  }
+
+  async unregisterInstance(group: string, id: string): Promise<void> {
+    await this.instanceService.deleteByGroupAndId(group, id);
+    const instances = await this.instanceService.getInstancesByGroup(group);
+    await this.groupService.updateInstanceCount(group, instances?.length || 0);
   }
 }

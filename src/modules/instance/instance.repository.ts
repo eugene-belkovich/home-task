@@ -71,4 +71,8 @@ export class InstanceRepository {
       throw new Error(error);
     }
   }
+
+  public async deleteByGroupAndId(group: string, id: string): Promise<void> {
+    await this.InstanceModel.deleteOne({group, id});
+  }
 }

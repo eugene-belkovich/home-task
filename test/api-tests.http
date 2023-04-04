@@ -63,3 +63,14 @@ Content-Type: application/json
     client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
   });
 %}
+
+###
+#intances: unregistred existing instance -> 201
+DELETE  http://localhost:8080/particle-detector-4/126
+Content-Type: application/json
+
+> {%
+  client.test("success", function() {
+    client.assert(response.status === 200, "Response status is 200");
+  });
+%}
