@@ -1,6 +1,7 @@
 dev:
 	docker-compose build
 	docker-compose up -d
+	npm run seed
 
 start:
 	docker-compose up -d
