@@ -1,25 +1,24 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
+import {Document} from 'mongoose';
 
 @Schema()
 export class Instance extends Document {
-  @Prop({ required: true })
+  @Prop({required: true})
   id: string;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   group: string;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   createdAt: number;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   updatedAt: number;
 
-  @Prop({ type: Object })
+  @Prop({type: Object})
   meta?: Record<string, any>;
 }
 
 export const InstanceSchema = SchemaFactory.createForClass(Instance);
 
 export type InstanceDocument = Instance & Document;
-

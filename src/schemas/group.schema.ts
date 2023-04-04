@@ -1,18 +1,18 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
+import {Document} from 'mongoose';
 
 @Schema()
 export class Group {
-  @Prop({ required: true })
+  @Prop({required: true})
   group: string;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   instances: string;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   createdAt: number;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   lastUpdatedAt: number;
 }
 

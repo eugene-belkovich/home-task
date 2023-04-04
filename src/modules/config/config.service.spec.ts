@@ -27,20 +27,20 @@ describe('ConfigService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
     // This is the default value on .env.dev.test file
-    expect(service.get('unitTest1')).toEqual('test1');
+    expect(service.get('NODE_ENV')).toEqual('test');
   });
 
   it('should take value of environment variable on top of one in .env.dev file', () => {
-    process.env.unitTest1 = 'new test';
+    process.env.NODE_ENV = 'new test';
 
-    expect(ConfigService.getDefaultInstance().get('unitTest1')).toEqual('new test');
+    expect(ConfigService.getDefaultInstance().get('NODE_ENV')).toEqual('new test');
   });
 
   it('should have environment variable even if there is no one in .env.dev file', () => {
     // This test expects .env.dev.test to have defined the unitTest1=test1 variable
     process.env.testNew = 'new test';
 
-    expect(ConfigService.getDefaultInstance().get('unitTest1')).toEqual('test1');
+    expect(ConfigService.getDefaultInstance().get('NODE_ENV')).toEqual('test');
     expect(ConfigService.getDefaultInstance().get('testNew')).toEqual('new test');
   });
 });

@@ -2,20 +2,24 @@ import {Controller, Get, Param} from '@nestjs/common';
 import {InstanceDocument} from '../../schemas/instance.schema';
 import {GroupDocument} from '../../schemas/group.schema';
 import {DiscoveryService} from './discovery.service';
+import { GroupService } from "../group/group.service";
 
 @Controller()
 export class DiscoveryController {
-  constructor(
+  public constructor(
     private readonly discoveryService: DiscoveryService,
+    private readonly groupService: GroupService,
+
   ) {}
 
   @Get('/')
   async getAllGroups(): Promise<GroupDocument[] | null> {
-    return null
+    return this.groupService.getAllGroups();
   }
 
+
   @Get('/:group')
-  async getInstancesByGroup(@Param('group') group: string): Promise<InstanceDocument[] | null> {
-    return null
+  public async getInstancesByGroup(@Param('group') group: string): Promise<InstanceDocument[] | null> {
+    return null;
   }
 }
