@@ -6,6 +6,7 @@
 - I used Postman for API developement by can't share it because it's not free
 - I skip majority of e2e and service tests because I don't have enough time. I wrote several to show my skills.
 - I skip majority of swagger coverage because I don't have enough time. I wrote several to show my skills.
+- Glitch have troubles with authorization. I can't registered account.
 
 # Ideas
 
