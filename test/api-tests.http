@@ -17,3 +17,28 @@ Content-Type: application/json
     client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
   });
 %}
+
+###
+#groups: get instances by group-> 200
+GET  http://localhost:8080/particle-detector-2
+Content-Type: application/json
+
+> {%
+  client.test("success", function() {
+    client.assert(response.status === 200, "Response status is 200");
+  });
+
+  client.test("response array", function() {
+    client.assert(Array.isArray(response.body));
+    client.assert(response.body.length === 1);
+  });
+
+  client.test("response object", function() {
+    client.assert(response.body[0].group === 'particle-detector-2');
+  });
+
+  client.test("response content-type is json", function() {
+    var type = response.contentType.mimeType;
+    client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  });
+%}
