@@ -7,7 +7,7 @@ import {ConfigService} from '../config/config.service';
 import {CronJob} from 'cron';
 
 const configService = ConfigService.getDefaultInstance();
-const HEARTBEAT_AGE_IN_MS = configService.get('HEARTBEAT_AGE_IN_MS');
+const INSTANCE_TTL_IN_MS = configService.get('INSTANCE_TTL_IN_MS');
 
 const CRON_JOB_NAME = 'removeExpiredInstances';
 
@@ -65,7 +65,7 @@ export class DiscoveryService implements OnApplicationBootstrap {
     }
 
     const expiredInstancesExists =
-      new Date().getTime() - new Date(recentInstance.updatedAt).getTime() > Number(HEARTBEAT_AGE_IN_MS);
+      new Date().getTime() - new Date(recentInstance.updatedAt).getTime() > Number(INSTANCE_TTL_IN_MS);
 
     if (!expiredInstancesExists) {
       console.log('no expired instances');
@@ -81,7 +81,7 @@ export class DiscoveryService implements OnApplicationBootstrap {
     for (const instance of instances) {
       const lastHeartbeatTime = new Date(instance.updatedAt).getTime();
 
-      if (new Date().getTime() - lastHeartbeatTime > Number(HEARTBEAT_AGE_IN_MS)) {
+      if (new Date().getTime() - lastHeartbeatTime > Number(INSTANCE_TTL_IN_MS)) {
         await this.instanceService.deleteById(instance.id);
       }
     }
