@@ -23,7 +23,6 @@ describe('Health (e2e)', () => {
   describe('Health (e2e)', () => {
     test('/health-check (GET)', async () => {
       const url = `${URL}/health-check`;
-      console.log({url});
       const response = await request(app.getHttpServer()).get(url);
       expect(response.body).toEqual('OK');
     });

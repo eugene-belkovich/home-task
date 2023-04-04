@@ -20,7 +20,6 @@ Before run application you need to run mongo database. You can use docker-compos
 npm run start:dev
 ```
 
-
 ## Test
 
 ```bash

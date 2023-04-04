@@ -2,6 +2,7 @@ import {NestFactory as NestFactoryCore} from '@nestjs/core';
 import {INestApplication, NestApplicationOptions} from '@nestjs/common';
 
 import {ConfigService} from '../config/config.service';
+import {AllExceptionsFilter} from '../../errors/all-exception.filter';
 
 const configService = ConfigService.getDefaultInstance();
 
@@ -23,6 +24,8 @@ export class DiscoveryApplication {
     const app = await NestFactoryCore.create(module, {...options, rawBody: true});
 
     processCors(app);
+
+    app.useGlobalFilters(new AllExceptionsFilter());
 
     return app;
   }
