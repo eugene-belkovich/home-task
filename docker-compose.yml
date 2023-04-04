@@ -1,0 +1,43 @@
+version: "3.9"
+
+networks:
+  default:
+    name: discovery-network
+
+services:
+  discovery-service:
+    container_name: ${CONTAINER_NAME_DISCOVERY_SERVICE}
+    env_file:
+      - .env
+    environment:
+      - DISCOVERY_SERVICE_PORT=${DISCOVERY_SERVICE_PORT}
+      - NODE_ENV=${NODE_ENV}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${DISCOVERY_SERVICE_PORT}:${DISCOVERY_SERVICE_PORT}
+      - 9229:9229 # for attaching debugger
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    logging:
+      driver: "json-file"
+
+
+  mongodb:
+    image: mongo:latest
+    container_name: ${CONTAINER_NAME_MONGODB}
+    env_file:
+      - .env
+    environment:
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_URI=${MONGODB_URI}
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
