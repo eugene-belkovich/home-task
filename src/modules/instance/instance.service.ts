@@ -20,7 +20,19 @@ export class InstanceService {
     return this.instanceRepository.findAllByGroupName(group);
   }
 
-  async deleteByGroupAndId(group: string, id: string): Promise<void> {
+  public getAllInstances(): Promise<InstanceDocument[] | null> {
+    return this.instanceRepository.findAll();
+  }
+
+  public getMostRecentInstance(): Promise<InstanceDocument | null> {
+    return this.instanceRepository.findMostRecentInstance();
+  }
+
+  public async deleteByGroupAndId(group: string, id: string): Promise<void> {
     await this.instanceRepository.deleteByGroupAndId(group, id);
+  }
+
+  public async deleteById(id: string): Promise<void> {
+    await this.instanceRepository.deleteById(id);
   }
 }

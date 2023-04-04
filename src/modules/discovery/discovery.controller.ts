@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
 import {Instance, InstanceDocument} from '../../schemas/instance.schema';
 import {GroupDocument} from '../../schemas/group.schema';
 import {DiscoveryService} from './discovery.service';
@@ -33,7 +33,7 @@ export class DiscoveryController {
   }
 
   @Delete(':group/:id')
-  async unregisterInstance(@Param('group') group: string, @Param('id') id: string): Promise<void> {
+  public async unregisterInstance(@Param('group') group: string, @Param('id') id: string): Promise<void> {
     await this.discoveryService.unregisterInstance(group, id);
   }
 }

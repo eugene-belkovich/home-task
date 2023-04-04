@@ -3,6 +3,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {Model} from 'mongoose';
 import {Instance, InstanceDocument} from '../../schemas/instance.schema';
 import {transform} from '../../utils/mongoose-transform';
+import {GroupDocument} from '../../schemas/group.schema';
 
 @Injectable()
 export class InstanceRepository {
@@ -47,6 +48,19 @@ export class InstanceRepository {
     }
   }
 
+  public async findAll(): Promise<InstanceDocument[] | null> {
+    try {
+      const instances = await this.InstanceModel.find();
+      const resultInstances = instances?.map((instance) => {
+        return instance.toObject({getters: true, versionKey: false, transform});
+      });
+
+      return resultInstances;
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
   public async findByGroupAndId(group: string, id: string): Promise<InstanceDocument | null> {
     try {
       const instance = await this.InstanceModel.findOne({group, id});
@@ -72,7 +86,23 @@ export class InstanceRepository {
     }
   }
 
+  public async findMostRecentInstance(): Promise<InstanceDocument | null> {
+    try {
+      const recentInstance = await this.InstanceModel.findOne().sort({updatedAt: -1});
+      if (!recentInstance) {
+        return null;
+      }
+      return recentInstance.toObject({getters: true, versionKey: false, transform});
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
   public async deleteByGroupAndId(group: string, id: string): Promise<void> {
     await this.InstanceModel.deleteOne({group, id});
+  }
+
+  public async deleteById(id: string): Promise<void> {
+    await this.InstanceModel.deleteOne({id});
   }
 }
