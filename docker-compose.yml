@@ -5,7 +5,7 @@ networks:
     name: discovery-network
 
 services:
-  discovery-service:
+  ubio_discovery_service:
     container_name: ${CONTAINER_NAME_DISCOVERY_SERVICE}
     env_file:
       - .env
@@ -19,14 +19,14 @@ services:
       - ${DISCOVERY_SERVICE_PORT}:${DISCOVERY_SERVICE_PORT}
       - 9229:9229 # for attaching debugger
     depends_on:
-      - mongodb
+      - ubio_mongodb
     links:
-      - mongodb
+      - ubio_mongodb
     logging:
       driver: "json-file"
 
 
-  mongodb:
+  ubio_mongodb:
     image: mongo:latest
     container_name: ${CONTAINER_NAME_MONGODB}
     env_file:
