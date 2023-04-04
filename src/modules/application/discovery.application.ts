@@ -2,7 +2,7 @@ import {NestFactory as NestFactoryCore} from '@nestjs/core';
 import {INestApplication, NestApplicationOptions} from '@nestjs/common';
 
 import {ConfigService} from '../config/config.service';
-import {AllExceptionsFilter} from '../../errors/all-exception.filter';
+import {AllExceptionsFilter} from '../../common/errors/all-exception.filter';
 
 const configService = ConfigService.getDefaultInstance();
 
